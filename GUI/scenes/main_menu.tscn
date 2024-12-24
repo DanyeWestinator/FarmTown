@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://b4s0khntgn21"]
+
+[ext_resource type="Script" path="res://GUI/scripts/main_menu.gd" id="1_0i4u3"]
+[ext_resource type="FontFile" uid="uid://k2yp4gf5litw" path="res://fonts/ARCADECLASSIC.TTF" id="2_8a5xa"]
+
+[sub_resource type="Theme" id="Theme_wfa70"]
+default_font = ExtResource("2_8a5xa")
+default_font_size = 127
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2oyam"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6niy"]
+bg_color = Color(0.187701, 0.44669, 0.252912, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nwk66"]
+bg_color = Color(1.92523e-06, 0.987805, 0.105807, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lpumy"]
+bg_color = Color(0.306159, 0.694401, 0.40494, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j04xe"]
+bg_color = Color(0, 0.988235, 0.105882, 1)
+
+[sub_resource type="Theme" id="Theme_fjnni"]
+default_font = ExtResource("2_8a5xa")
+default_font_size = 85
+Button/styles/hover = SubResource("StyleBoxFlat_y6niy")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_nwk66")
+Button/styles/normal = SubResource("StyleBoxFlat_lpumy")
+Button/styles/pressed = SubResource("StyleBoxFlat_j04xe")
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_0i4u3")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 222.0
+offset_top = 49.0
+offset_right = 930.0
+offset_bottom = 192.0
+theme = SubResource("Theme_wfa70")
+text = "Farm  Town!"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 448.0
+offset_top = 251.0
+offset_right = 635.0
+offset_bottom = 429.0
+alignment = 1
+
+[node name="Host" type="Button" parent="VBoxContainer"]
+material = SubResource("CanvasItemMaterial_2oyam")
+layout_mode = 2
+theme = SubResource("Theme_fjnni")
+text = "Play"
+
+[node name="Join" type="Button" parent="VBoxContainer"]
+material = SubResource("CanvasItemMaterial_2oyam")
+layout_mode = 2
+theme = SubResource("Theme_fjnni")
+text = "Join"
+
+[connection signal="pressed" from="VBoxContainer/Host" to="." method="_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Join" to="." method="_join_pressed"]

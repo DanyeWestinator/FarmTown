@@ -1,0 +1,661 @@
+[gd_scene load_steps=45 format=3 uid="uid://b280gtcg6t5ln"]
+
+[ext_resource type="Script" path="res://player/scripts/player.gd" id="1_6vmuv"]
+[ext_resource type="Texture2D" uid="uid://clqaftcnewrpy" path="res://player/sprites/player_spritesheet02.png" id="2_uyemm"]
+[ext_resource type="Script" path="res://player/scripts/tool.gd" id="3_k6ooy"]
+[ext_resource type="Texture2D" uid="uid://chhxsxi8w38es" path="res://player/sprites/tools/shovel.png" id="3_tygbu"]
+[ext_resource type="PackedScene" uid="uid://dwjfswvoae1ev" path="res://player/scenes/InventoryItem.tscn" id="4_c8kvv"]
+[ext_resource type="Texture2D" uid="uid://biq1hrovvngm" path="res://player/sprites/tools/scythe.png" id="5_pwniy"]
+[ext_resource type="Texture2D" uid="uid://buqr0fwys4xqn" path="res://player/sprites/tools/water_full.png" id="6_1ne03"]
+[ext_resource type="Script" path="res://player/scripts/InventoryManager.gd" id="6_mkjh3"]
+[ext_resource type="Texture2D" uid="uid://bgmqjp7awd1j5" path="res://world/sprites/tinytown-tilemap.png" id="7_gl8k0"]
+[ext_resource type="Texture2D" uid="uid://bcyku82fb243t" path="res://player/sprites/tools/seeds.png" id="7_l4dfs"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2inkp"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimatedSprite2D:frame")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("ToolSprite:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("ToolSprite:rotation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("ToolSprite/SeedParticles:emitting")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("ToolSprite:region_rect")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxgcl"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfd4o"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(0, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53rju"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(0, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yxn2"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(0, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48iy5"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uhu5l"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(32, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cmma"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(32, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c51a"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(32, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lh4m"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oex1v"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(48, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dy5ts"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(48, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr6yf"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(48, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwlgf"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mu3cl"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(16, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sixo"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(16, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_is3ny"]
+atlas = ExtResource("2_uyemm")
+region = Rect2(16, 96, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bbdn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxgcl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfd4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53rju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5yxn2")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48iy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uhu5l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cmma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c51a")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lh4m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oex1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dy5ts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vr6yf")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwlgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mu3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sixo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_is3ny")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cucsi"]
+radius = 42.0304
+height = 84.0609
+
+[sub_resource type="Animation" id="Animation_wk7tf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_emqi3"]
+resource_name = "dig_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.466667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [3.14159, 3.14159, 3.83972, 3.14159]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.466667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 116), Vector2(2.725, 142.47), Vector2(-13.275, 156.47), Vector2(0, 116)]
+}
+
+[sub_resource type="Animation" id="Animation_taifs"]
+resource_name = "dig_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667, 0.566667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-79, 16), Vector2(-61.275, 58.47), Vector2(-76.275, 72.47), Vector2(-87.275, 31.47), Vector2(-79, 16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667, 0.566667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [4.71239, 4.17134, 4.56404, 5.44892, 4.71239]
+}
+
+[sub_resource type="Animation" id="Animation_5ogna"]
+resource_name = "dig_down"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(1.5708, -0.25, 0, 0.25, 0, 2.16944, -0.25, 0, 0.25, 0, 1.79071, -0.25, 0, 0.25, 0, 1.00007, -0.25, 0, 0.25, 0, 1.5708, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.533333, 1)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.533333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(79, 16), Vector2(79.725, 45.47), Vector2(88.725, 14.47), Vector2(79, 16)]
+}
+
+[sub_resource type="Animation" id="Animation_idwsi"]
+resource_name = "dig_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.233333, 0.4168, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -80.53), Vector2(-12.275, -104.53), Vector2(-0.275002, -112.53), Vector2(41.725, -141.53), Vector2(0, -80.53)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.233333, 0.4548, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.502655, 0.0, 0.678933, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_da5s8"]
+resource_name = "scythe_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 110)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.533333, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, 6.28319, 0.0174533, 3.14159, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_73ckh"]
+resource_name = "scythe_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-75, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.533333, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, 6.28319, 0.0174533, 3.14159, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_dfva8"]
+resource_name = "scythe_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(75, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.533333, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, 6.28319, 0.0174533, 3.14159, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_o7xls"]
+resource_name = "scythe_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.533333, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, 6.28319, 0.0174533, 3.14159, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_ye4hr"]
+resource_name = "seeds_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333334, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 100), Vector2(0, 120), Vector2(0, 120), Vector2(0, 100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333334, 0.133333, 0.233333, 0.333333, 0.433333, 0.533333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [3.14159, 2.35619, 3.92699, 3.14159, 2.35619, 3.14159, 2.35619, 3.14159]
+}
+
+[sub_resource type="Animation" id="Animation_3lbir"]
+resource_name = "seeds_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333334, 0.533333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-79, 16), Vector2(-95.225, -15), Vector2(-95.225, -15), Vector2(-79, 16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333334, 0.133333, 0.233333, 0.333333, 0.433333, 0.533333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [4.71239, 2.35619, 3.92699, 3.14159, 2.35619, 3.14159, 2.35619, 4.71239]
+}
+
+[sub_resource type="Animation" id="Animation_j5cts"]
+resource_name = "seeds_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333334, 0.533333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(79, 16), Vector2(95.225, -15), Vector2(95.225, -15), Vector2(79, 16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333334, 0.133333, 0.233333, 0.333333, 0.433333, 0.533333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.5708, 2.35619, 3.92699, 3.14159, 2.35619, 3.14159, 2.35619, 1.5708]
+}
+
+[sub_resource type="Animation" id="Animation_jyf0o"]
+resource_name = "seeds_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333334, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -120), Vector2(0, -120), Vector2(0, -120), Vector2(0, -120)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ToolSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333334, 0.133333, 0.233333, 0.333333, 0.433333, 0.533333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [3.14159, 2.35619, 3.92699, 3.14159, 2.35619, 3.14159, 2.35619, 3.14159]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i8xpv"]
+_data = {
+"RESET": SubResource("Animation_wk7tf"),
+"dig_down": SubResource("Animation_emqi3"),
+"dig_left": SubResource("Animation_taifs"),
+"dig_right": SubResource("Animation_5ogna"),
+"dig_up": SubResource("Animation_idwsi"),
+"scythe_down": SubResource("Animation_da5s8"),
+"scythe_left": SubResource("Animation_73ckh"),
+"scythe_right": SubResource("Animation_dfva8"),
+"scythe_up": SubResource("Animation_o7xls"),
+"seeds_down": SubResource("Animation_ye4hr"),
+"seeds_left": SubResource("Animation_3lbir"),
+"seeds_right": SubResource("Animation_j5cts"),
+"seeds_up": SubResource("Animation_jyf0o")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iq7hh"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(70, 2, 1)
+emission_shape = 6
+emission_ring_axis = Vector3(1, 0, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+gravity = Vector3(0, 98, 0)
+scale_min = 5.0
+scale_max = 5.0
+color = Color(0, 0.255489, 0.0259324, 1)
+hue_variation_min = -2.23517e-08
+hue_variation_max = -2.23517e-08
+turbulence_noise_strength = 3.82
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(114.275, 132.53)
+collision_mask = 30
+script = ExtResource("1_6vmuv")
+speed = 150
+max_mouse_distance = 300
+metadata/_edit_group_ = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_2inkp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 10
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_bbdn4")
+animation = &"down"
+
+[node name="Tools" type="Node2D" parent="."]
+
+[node name="Shovel" type="Node" parent="Tools"]
+script = ExtResource("3_k6ooy")
+inv_sprite = ExtResource("3_tygbu")
+atlas_coords = Vector2i(136, 170)
+anim_prefix = "dig"
+
+[node name="Scythe" type="Node" parent="Tools"]
+script = ExtResource("3_k6ooy")
+inv_sprite = ExtResource("5_pwniy")
+atlas_coords = Vector2i(153, 170)
+anim_prefix = "scythe"
+anim_speed = 1.0
+
+[node name="Water" type="Node" parent="Tools"]
+script = ExtResource("3_k6ooy")
+inv_sprite = ExtResource("6_1ne03")
+atlas_coords = Vector2i(187, 170)
+
+[node name="Seeds" type="Node" parent="Tools"]
+script = ExtResource("3_k6ooy")
+inv_sprite = ExtResource("7_l4dfs")
+atlas_coords = Vector2i(187, 136)
+anim_prefix = "seeds"
+anim_speed = 0.8
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 11
+position = Vector2(-1.275, 47.47)
+scale = Vector2(0.666183, 1)
+shape = SubResource("CapsuleShape2D_cucsi")
+debug_color = Color(0, 0.6, 0.701961, 0.203922)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i8xpv")
+}
+
+[node name="ToolSprite" type="Sprite2D" parent="."]
+z_index = 4
+rotation = -1.5708
+scale = Vector2(3, 3)
+texture = ExtResource("7_gl8k0")
+region_enabled = true
+region_rect = Rect2(153, 170, 16, 16)
+
+[node name="SeedParticles" type="GPUParticles2D" parent="ToolSprite"]
+z_index = 30
+position = Vector2(0, -7)
+rotation = 3.14159
+scale = Vector2(0.333333, 0.333333)
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_iq7hh")
+one_shot = true
+explosiveness = 0.68
+randomness = 0.39
+
+[node name="right_tool" type="Node2D" parent="."]
+position = Vector2(79, 16.47)
+rotation = 1.5708
+
+[node name="left_tool" type="Node2D" parent="."]
+position = Vector2(-79, 16.47)
+rotation = 4.71239
+
+[node name="up_tool" type="Node2D" parent="."]
+position = Vector2(-0.275002, -84.53)
+
+[node name="down_tool" type="Node2D" parent="."]
+position = Vector2(-0.275002, 116.47)
+rotation = 3.14159
+
+[node name="InventoryGUI" type="Node2D" parent="." node_paths=PackedStringArray("Tools")]
+position = Vector2(0, 15)
+script = ExtResource("6_mkjh3")
+spacing = 180.0
+Tools = [NodePath("../Tools/Shovel"), NodePath("../Tools/Scythe"), NodePath("../Tools/Water"), NodePath("../Tools/Seeds")]
+
+[node name="InventoryItem" parent="InventoryGUI" instance=ExtResource("4_c8kvv")]
+visible = false
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

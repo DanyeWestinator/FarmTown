@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwjfswvoae1ev"]
+
+[ext_resource type="StyleBox" uid="uid://dgjmx0sfawb78" path="res://player/scenes/button_normal.tres" id="1_d20wv"]
+[ext_resource type="FontFile" uid="uid://k2yp4gf5litw" path="res://fonts/ARCADECLASSIC.TTF" id="2_s2t4k"]
+[ext_resource type="Texture2D" uid="uid://chhxsxi8w38es" path="res://player/sprites/tools/shovel.png" id="3_q33fd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0rliw"]
+bg_color = Color(0.377691, 0.382807, 0.0600106, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_7lhdl"]
+Button/styles/hover = SubResource("StyleBoxFlat_0rliw")
+Button/styles/normal = ExtResource("1_d20wv")
+Button/styles/pressed = ExtResource("1_d20wv")
+
+[node name="InventoryItem" type="Control"]
+z_index = 20
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_7lhdl")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -56.0
+offset_top = 24.0
+offset_right = 60.0
+offset_bottom = 57.0
+theme_override_fonts/font = ExtResource("2_s2t4k")
+theme_override_font_sizes/font_size = 30
+text = "SHOVEL"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -32.0
+offset_top = -54.115
+offset_right = 32.0
+offset_bottom = 9.885
+mouse_filter = 2
+texture = ExtResource("3_q33fd")
