@@ -44,10 +44,23 @@ func PlacePlantAt(coords):
 	if coords in spawned_plants: return
 	_place_plant_rpc.rpc(coords)
 	
+@rpc("any_peer", "call_local")
+func HarvestPlantAt(coords : Vector2i):
+	if coords not in spawned_plants:
+		print("Nothing IN DICT AT ", coords) 
+		return
+	var plant : Plant = spawned_plants[coords]
+	
+	if plant.IsMature() == false: 
+		print("PLANT WAS NOT MATURE")
+		return
+	plant.queue_free()
+	print("Harvested plant at cell ", coords)
+	spawned_plants.erase(coords)
 	
 @rpc("any_peer", "call_local")
 func _place_plant_rpc(coords):
-	var plant = plant_prefab.instantiate()
+	var plant : Plant = plant_prefab.instantiate()
 	spawned_plants[coords] = plant
 	plant.name = str(coords)
 	plant.show()
@@ -58,6 +71,8 @@ func _place_plant_rpc(coords):
 	plant.position = pos
 	
 var _tile_sources : Dictionary
+
+#Tries to set the ground layer tile to a given texture atlas
 func TrySetTile(coords : Vector2i, atlas : Vector2i, layer : int = 3) -> bool:
 	if coords in changed_tiles and changed_tiles[coords] == atlas:
 		return false
@@ -78,12 +93,9 @@ func __set_cell(coords : Vector2i, atlas : Vector2i, layer : int = 3) -> void:
 	changed_tiles[coords] = atlas
 	ground.set_cell(coords, layer, atlas)
 
-
 func _on_player_joined(peer_id : int):
 	_player_joined_rpc.rpc_id(peer_id, changed_tiles)
-	for coord in spawned_plants:
-		var plant : Node2D = spawned_plants[coord]
-		var anim : AnimatedSprite2D = plant.get_node("AnimatedSprite2D")
+	
 var _joined = false
 @rpc("authority", "call_remote")
 func _player_joined_rpc(tiles : Dictionary):

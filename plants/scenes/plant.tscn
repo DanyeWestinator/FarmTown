@@ -1,7 +1,8 @@
-[gd_scene load_steps=221 format=3 uid="uid://bdefbaf5ar7i3"]
+[gd_scene load_steps=222 format=3 uid="uid://bdefbaf5ar7i3"]
 
 [ext_resource type="Texture2D" uid="uid://d3l2gv35jxq8n" path="res://plants/sprites/corn/corn_1.png" id="1_3l2xs"]
 [ext_resource type="Texture2D" uid="uid://81w01dtaytgh" path="res://plants/sprites/beet/beet_1.png" id="1_c60xl"]
+[ext_resource type="Script" path="res://plants/scripts/plant.gd" id="1_tl8dq"]
 [ext_resource type="Texture2D" uid="uid://cdggmvwn5a4a1" path="res://plants/sprites/corn/corn_2.png" id="2_1yonr"]
 [ext_resource type="Texture2D" uid="uid://ct4jhrydrbjer" path="res://plants/sprites/beet/beet_2.png" id="2_wkjgh"]
 [ext_resource type="Texture2D" uid="uid://bbncpyiqnfe4j" path="res://plants/sprites/corn/corn_3.png" id="3_8y2gd"]
@@ -974,6 +975,7 @@ properties/2/replication_mode = 1
 
 [node name="Plant" type="Node2D"]
 scale = Vector2(4, 4)
+script = ExtResource("1_tl8dq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -10.5)

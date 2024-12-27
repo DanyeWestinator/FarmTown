@@ -44,6 +44,9 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		var inv : InventoryManager = $InventoryGUI
 		inv.InventoryPressed()
+	if Input.is_action_just_pressed("space"):
+		var root = get_tree().root
+		utilities.PrintTree(root)
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
@@ -110,17 +113,12 @@ func _primary_pressed():
 	_is_tool_anim_playing = true
 	_current_tooltype.Use(cell)
 	
-	#animator.play()
-func _on_animation_finished(anim_name: StringName) -> void:
+func _on_animation_finished(_anim_name: StringName) -> void:
 	_current_tooltype.FinishUse(cell)
-	#if "dig" in anim_name:
-	#	var dirt = Vector2i(6, 1)
-	#	plants.TrySetTile(cell, dirt)
+	
 	_is_tool_anim_playing = false
 	
 func _secondary_pressed():
-	#var coords = plants.Coords_From_World(get_global_mouse_position())
-	#plants.PlacePlantAt(cell)
 	pass
 	
 var _last_hovered_cell = Vector2i(-1111,-1111)

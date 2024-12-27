@@ -21,9 +21,12 @@ func FinishUse(selected_cell : Vector2i) -> void:
 		_finish_shovel(selected_cell)
 	if "Seeds" in str(name):
 		_finish_use_seeds(selected_cell)
+	if "Scythe" in str(name):
+		_finish_use_scythe(selected_cell)
+			
 
 		
-func _use_shovel(selected_cell : Vector2i): 
+func _use_shovel(_selected_cell : Vector2i): 
 	player.animator.play()
 func _finish_shovel(selected_cell : Vector2i) -> void:
 	var dirt = Vector2i(6, 1)
@@ -37,3 +40,6 @@ func _use_seeds(_selected_cell : Vector2i):
 func _finish_use_seeds(selected_cell : Vector2i):
 	player.plants.PlacePlantAt(selected_cell)
 	seed_particles.emitting = false
+	
+func _finish_use_scythe(cell : Vector2i):
+	player.plants.HarvestPlantAt.rpc(cell)
